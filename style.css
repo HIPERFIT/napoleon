@@ -19,3 +19,40 @@ h1 {
   padding-left: 1em;
   border-left: thick double #000000;
 }
+
+#logo {
+  width: 114px;
+  height: 114px;
+  animation: logo 3s infinite;
+  -webkit-animation: logo 3s infinite;
+}
+
+@keyframes logo {
+  0% {
+    margin-left: 0;
+    transform: rotate(0deg);
+  }
+  50% {
+    margin-left: calc(100% - 114px - 5px);
+    transform: rotate(720deg);
+  }
+  100% {
+    margin-left: 0;
+    transform: rotate(0deg);
+  }
+}
+
+@-webkit-keyframes logo {
+  0% {
+    margin-left: 0;
+    -webkit-transform: rotate(0deg);
+  }
+  50% {
+    margin-left: calc(100% - 256px - 10px);
+    -webkit-transform: rotate(360deg);
+  }
+  100% {
+    margin-left: 0;
+    -webkit-transform: rotate(0deg);
+  }
+}
