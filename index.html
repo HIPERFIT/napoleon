@@ -2,10 +2,101 @@
 <html>
   <head>
     <title>The napoleon web site</title>
+    <meta charset="UTF-8">
+    <link href="style.css" rel="stylesheet" type="text/css">
   </head>
 
   <h1>Welcome to <tt>napoleon</tt>!</h1>
 
   This is a general-purpose experimentation/development server
-  for <a href="http://hiperfit.dk">HIPERFIT</a>.
+  for the <a href="http://hiperfit.dk">HIPERFIT</a> research centre.
+
+  <div id="left-column">
+
+    <h2>Getting an account</h2>
+
+    If you want an account on <tt>napoleon</tt>, please send an email
+    to <tt>athas@sigkill.dk</tt> with your desired user name
+    and <a href="https://help.github.com/articles/generating-ssh-keys/">your
+      public SSH key</a>.
+
+    <h2>Updating this website</h2>
+
+    This is a static website
+    maintained <a href="https://github.com/HIPERFIT/napoleon">on
+    Github</a>.  Every hour, a cronjob (<tt>crontab -e</tt>) running
+    as the <tt>napoleon</tt> user will perform a <tt>git pull</tt> to
+    synchronise.
+
+  </div>
+
+  <div id="right-column">
+
+    <h2>Hardware specifications</h2>
+
+    <ul>
+      <li> Two AMD Opteron 6274 processors, each with 16 cores.
+      Fairly bad sequential performance and
+      extreme <a href="https://en.wikipedia.org/wiki/Non-uniform_memory_access">NUMA
+          behaviour</a>.
+
+      <li>128 GiB of RAM.</li>
+
+      <li> Two NVIDIA GeForce GTX 690 cards, each containing two
+        physical GPUs.  Terrible double-precision performance.
+
+      <li> One AMD FireGL 8100 graphics card, which has a lot of very
+      fast memory and excellent double-precision performance.
+
+      <li> Permanent storage:
+        <ul>
+          <li> 128GiB SSD used for the root partition.
+          <li> Old 1TiB disk used for ancillary storage (<tt>/hiperfit</tt>)
+          <li> New 6TiB disk used for <tt>/home</tt>.
+        </ul>
+        <strong>None of this is automatically backed up.</strong>
+    </ul>
+
+    <h2>System setup</h2>
+
+    <tt>napoleon</tt> runs OpenSUSE (13.2 as of this writing), as this
+    is the GNU/Linux distribution preferred by the IT department at
+    our university.
+
+    The setup of <tt>napoleon</tt> is mostly conventional, although
+    the GPU driver setup is a little strange:
+    <ul>
+      <li> Having both the NVIDIA kernel modules (<tt>nvidia</tt>
+      and <tt>nvidia_uvm</tt>) and the AMD kernel module
+      (<tt>fglrx</tt>) loaded is no problem.
+
+      <li> Neither is having two (or more) OpenCL ICDs.  These are
+        simply stored in the <tt>/etc/OpenCL/vendors/</tt> directory.
+
+      <li> <em>However</em>, the AMD OpenCL ICD goes grovelling
+      for <tt>libGL.so</tt> libraries and tries to load whatever it
+      finds for OpenCL/OpenGL-interoperability, presumably under the
+      assumption that they contain an AMD OpenGL implementation.
+
+      <li> They do not.
+
+      <li> In fact, it will eventually find the
+      NVIDIA-supplied <tt>libGL</tt> libraries and get horribly
+      confused.  This generally manifests as OpenCL initialisation
+        function locking up at runtime.
+
+      <li>NVIDIAs <tt>libGL.so</tt> comes from the
+      package <tt>x11-video-nvidiaG04</tt>.  For reasons that are no
+      doubt magical in nature, this is also the package that contains
+      the critical <tt>libnvidia-compiler.so</tt> library, so it is
+      not possible to merely remove <tt>x11-video-nvidiaG04</tt> - at
+        least not if you still want to run OpenCL programs on NVIDIA.
+
+      <li>At this point, the frustrated PhD student
+      manning <tt>napoleon</tt> got frustrated and just deleted every
+      file whose name resembled <tt>libGL.so</tt> from the system.  If
+      you ever need to reinstall <tt>napoleon</tt>, or wish to setup a
+      multi-vendor GPU-machine (don't), try something similar.
+    </ul>
+  </div>
 </html>

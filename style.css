@@ -1,0 +1,21 @@
+h1, h2 {
+  font-family: monospace;
+}
+
+h1 {
+  color: #444;
+  font-style: italic;
+  font-size: 2em;
+}
+
+#left-column {
+  float: left;
+  width: 49%;
+}
+
+#right-column {
+  float: right;
+  width: 49%;
+  padding-left: 1em;
+  border-left: thick double #000000;
+}
