@@ -35,12 +35,46 @@
       folder <tt>/home/<em>user</em>/public_html</tt>.
     </p>
 
+    <h2>Getting an account</h2>
+
+    <p>
+      If Troels is unavaiable or grumpy, anyone with <tt>root</tt>
+      access can add new acounts as well.  This is unfortunately not a
+      fully automated process.  You can can use the YaST tool
+      via <tt>sudo yast2</tt>, but it is probably easier to just use
+      the Unix commands directly.  First, add the user:
+    </p>
+
+      <code>
+        $ sudo useradd -m -g video <em>username</em>
+      </code>
+
+    <p>
+      The <tt>-g video</tt> part is for GPU access, and can be skipped
+      if the user does not intend to use the GPUs.
+    </p>
+
+    <p>
+      Since <tt>napoleon</tt> does not permit password-pased login,
+      you will then have to create an <tt>authorized_keys</tt> file
+      and enter their public key:
+    </p>
+
+      <code>
+        $ sudo -u <em>username</em> mkdir -p /home/<em>username</em>/.ssh/ <br>
+        $ sudo -u <em>username</em> emacs /home/<em>username</em>/.ssh/authorized_keys
+      </code>
+
+    <p>
+      That should be it.
+    </p>
+
     <h2>Updating this website</h2>
 
       This is a static website
       maintained <a href="https://github.com/HIPERFIT/napoleon">on
         Github</a>.  Every hour, a cronjob (<tt>crontab -e</tt>) running
-      as the <tt>napoleon</tt> user will perform a <tt>git pull</tt> to
+      as thne <tt>napoleon</tt> user will perform a <tt>git pull</tt> to
       synchronise.
   </div>
 
