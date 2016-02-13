@@ -6,10 +6,12 @@
     <link href="style.css" rel="stylesheet" type="text/css">
   </head>
 
-  <h1>Welcome to <tt>napoleon</tt>!</h1>
+  <h1>Welcome to <code>napoleon</code>!</h1>
 
-  This is a general-purpose experimentation/development server
-  for the <a href="http://hiperfit.dk">HIPERFIT</a> research centre.
+  <p>
+    This is a general-purpose experimentation/development server for
+    the <a href="http://hiperfit.dk">HIPERFIT</a> research centre.
+  </p>
 
   <div id="left-column">
 
@@ -22,48 +24,47 @@
     <h2>Getting an account</h2>
 
     <p>
-      If you want an account on <tt>napoleon</tt>, please send an
-      email to <tt>athas@sigkill.dk</tt> with your desired user name
+      If you want an account on <code>napoleon</code>, please send an email
+      to <code>athas@sigkill.dk</code> with your desired user name
       and <a href="https://help.github.com/articles/generating-ssh-keys/">your
-      public SSH key</a>.  For security reasons, password-based login
-      is explicitly <em>not</em> permitted.
+      public SSH key</a>.  For security reasons, password-based login is
+      explicitly <em>not</em> permitted.
     </p>
     <p>
-      The <tt>napoleon</tt> webserver has been configured with user
-      directories such that
-      URL <tt>napoleon.hiperfit.dk/~<em>user</em></tt> is mapped to the
-      folder <tt>/home/<em>user</em>/public_html</tt>.
+      The <code>napoleon</code> webserver has been configured with user
+      directories such that URL <code>napoleon.hiperfit.dk/~<em>user</em></code>
+      is mapped to the folder <code>/home/<em>user</em>/public_html</code>.
     </p>
 
     <h2>Creating an account</h2>
 
     <p>
-      If Troels is unavaiable or grumpy, anyone with <tt>root</tt>
-      access can add new acounts as well.  This is unfortunately not a
-      fully automated process.  You can can use the YaST tool
-      via <tt>sudo yast2</tt>, but it is probably easier to just use
-      the Unix commands directly.  First, add the user:
+      If Troels is unavaiable or grumpy, anyone with <code>root</code> access
+      can add new acounts as well.  This is unfortunately not a fully automated
+      process.  You can can use the YaST tool via <code>sudo yast2</code>, but
+      it is probably easier to just use the Unix commands directly.  First, add
+      the user:
     </p>
 
-      <code>
-        $ sudo useradd -m -g video <em>username</em>
-      </code>
+    <kbd>
+      $ sudo useradd -m -g video <em>username</em>
+    </kbd>
 
     <p>
-      The <tt>-g video</tt> part is for GPU access, and can be skipped
+      The <kbd>-g video</kbd> part is for GPU access, and can be skipped
       if the user does not intend to use the GPUs.
     </p>
 
     <p>
-      Since <tt>napoleon</tt> does not permit password-pased login,
-      you will then have to create an <tt>authorized_keys</tt> file
+      Since <code>napoleon</code> does not permit password-pased login,
+      you will then have to create an <code>authorized_keys</code> file
       and enter their public key:
     </p>
 
-      <code>
-        $ sudo -u <em>username</em> mkdir -p /home/<em>username</em>/.ssh/ <br>
-        $ sudo -u <em>username</em> emacs /home/<em>username</em>/.ssh/authorized_keys
-      </code>
+    <kbd>
+      $ sudo -u <em>username</em> mkdir -p /home/<em>username</em>/.ssh/ <br>
+      $ sudo -u <em>username</em> emacs /home/<em>username</em>/.ssh/authorized_keys
+    </kbd>
 
     <p>
       That should be it.
@@ -71,11 +72,13 @@
 
     <h2>Updating this website</h2>
 
+    <p>
       This is a static website
-      maintained <a href="https://github.com/HIPERFIT/napoleon">on
-        Github</a>.  Every hour, a cronjob (<tt>crontab -e</tt>) running
-      as the <tt>napoleon</tt> user will perform a <tt>git pull</tt> to
+      maintained <a href="https://github.com/HIPERFIT/napoleon">on Github</a>.
+      Every hour, a cronjob (<kbd>crontab -e</kbd>) running as
+      the <code>napoleon</code> user will perform a <kbd>git pull</kbd> to
       synchronise.
+    </p>
   </div>
 
   <div id="right-column">
@@ -83,69 +86,96 @@
     <h2>Hardware specifications</h2>
 
     <ul>
-      <li> Two AMD Opteron 6274 processors, each with 16 cores.
-        Fairly bad sequential performance and
+      <li>
+        Two AMD Opteron 6274 processors, each with 16 cores.  Fairly bad
+        sequential performance and
         extreme <a href="https://en.wikipedia.org/wiki/Non-uniform_memory_access">NUMA
-          behaviour</a>.
+        behaviour.</a>.
+      </li>
 
-      <li>128 GiB of RAM.</li>
+      <li>
+        128 GiB of RAM.
+      </li>
 
-      <li> Two NVIDIA GeForce GTX 690 cards, each containing two
-        physical GPUs.  Terrible double-precision performance.
+      <li>
+        Two NVIDIA GeForce GTX 690 cards, each containing two physical GPUs.
+        Terrible double-precision performance.
+      </li>
 
-      <li> One AMD FireGL 8100 graphics card, which has a lot of very
-        fast memory and excellent double-precision performance.
+      <li>
+        One AMD FireGL 8100 graphics card, which has a lot of very fast memory
+        and excellent double-precision performance.
+      </li>
 
-      <li> Permanent storage:
+      <li>
+        Permanent storage:
         <ul>
-          <li> 128GiB SSD used for the root partition.
-          <li> Old 1TiB disk used for ancillary storage (<tt>/hiperfit</tt>)
-          <li> New 6TiB disk used for <tt>/home</tt>.
+          <li>128GiB SSD used for the root partition.</li>
+          <li>Old 1TiB disk used for ancillary storage (<code>/hiperfit</code>).</li>
+          <li>New 6TiB disk used for <code>/home</code>.</li>
         </ul>
         <strong>None of this is automatically backed up.</strong>
+      </li>
     </ul>
 
     <h2>System setup</h2>
 
-    <tt>napoleon</tt> runs OpenSUSE (13.2 as of this writing), as this
-    was the GNU/Linux distribution preferred by the IT department at
-    the faculty of SCIENCE at the time the server was installed.
+    <p>
+      <code>napoleon</code> runs OpenSUSE (13.2 as of this writing), as this was
+      the GNU/Linux distribution preferred by the IT department at the faculty of
+      SCIENCE at the time the server was installed.
+      </p>
 
-    The setup of <tt>napoleon</tt> is mostly conventional, although
-    the GPU driver setup is a little strange:
+    <p>
+      The setup of <code>napoleon</code> is mostly conventional, although the
+      GPU driver setup is a little strange:
+    </p>
+
     <ul>
-      <li> Having both the NVIDIA kernel modules (<tt>nvidia</tt>
-        and <tt>nvidia_uvm</tt>) and the AMD kernel module
-        (<tt>fglrx</tt>) loaded is no problem.
+      <li>
+        Having both the NVIDIA kernel modules (<code>nvidia</code>
+        and <code>nvidia_uvm</code>) and the AMD kernel module
+        (<code>fglrx</code>) loaded is no problem.
+      </li>
 
-      <li> Neither is having two (or more) OpenCL ICDs.  These are
-        simply stored in the <tt>/etc/OpenCL/vendors/</tt> directory.
+      <li>
+        Neither is having two (or more) OpenCL ICDs.  These are simply stored in
+        the <code>/etc/OpenCL/vendors/</code> directory.
+      </li>
 
-      <li> <em>However</em>, the AMD OpenCL ICD goes grovelling
-        for <tt>libGL.so</tt> libraries and tries to load whatever it
-        finds for OpenCL/OpenGL-interoperability, presumably under the
-        assumption that they contain an AMD OpenGL implementation.
+      <li>
+        <em>However</em>, the AMD OpenCL ICD goes grovelling
+        for <code>libGL.so</code> libraries and tries to load whatever it finds
+        for OpenCL/OpenGL-interoperability, presumably under the assumption that
+        they contain an AMD OpenGL implementation.
+      </li>
 
-      <li> They do not.
+      <li>
+        They do not.
+      </li>
 
-      <li> In fact, it will eventually find the
-        NVIDIA-supplied <tt>libGL</tt> libraries and get horribly
-        confused.  This generally manifests as OpenCL initialisation
-        function locking up at runtime.
+      <li>
+        In fact, it will eventually find the NVIDIA-supplied <code>libGL</code>
+        libraries and get horribly confused.  This generally manifests as OpenCL
+        initialisation function locking up at runtime.
+      </li>
 
-      <li>NVIDIAs <tt>libGL.so</tt> comes from the
-        package <tt>x11-video-nvidiaG04</tt>.  For reasons that are no
-        doubt magical in nature, this is also the package that contains
-        the critical <tt>libnvidia-compiler.so</tt> library, so it is
-        not possible to merely remove <tt>x11-video-nvidiaG04</tt> - at
-        least not if you still want to run OpenCL programs on NVIDIA.
+      <li>
+        NVIDIAs <code>libGL.so</code> comes from the
+        package <code>x11-video-nvidiaG04</code>.  For reasons that are no doubt
+        magical in nature, this is also the package that contains the
+        critical <code>libnvidia-compiler.so</code> library, so it is not
+        possible to merely remove <code>x11-video-nvidiaG04</code> - at least
+        not if you still want to run OpenCL programs on NVIDIA.
+      </li>
 
-      <li>At this point, the impatient PhD student
-        manning <tt>napoleon</tt> got frustrated and simply deleted
-        every file whose name resembled <tt>libGL.so</tt> from the
-        system.  If you ever need to reinstall <tt>napoleon</tt>, or
-        wish to setup a multi-vendor GPU-machine (don't), try
-        something similar.
+      <li>
+        At this point, the impatient PhD student manning <code>napoleon</code>
+        got frustrated and simply deleted every file whose name
+        resembled <code>libGL.so</code> from the system.  If you ever need to
+        reinstall <code>napoleon</code>, or wish to setup a multi-vendor
+        GPU-machine (don't), try something similar.
+      </li>
     </ul>
   </div>
 </html>
