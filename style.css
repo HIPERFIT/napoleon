@@ -34,7 +34,7 @@ h1 {
   }
   50% {
     margin-left: calc(100% - 114px - 5px);
-    transform: rotate(720deg);
+    transform: rotate(1080deg);
   }
   100% {
     margin-left: 0;
